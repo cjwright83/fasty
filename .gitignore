@@ -1,0 +1,6 @@
+# generated files
+**/*.pyc
+**/__pycache__/
+
+#PyRight
+pyrightconfig.json
