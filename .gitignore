@@ -3,4 +3,4 @@
 **/__pycache__/
 
 #PyRight
-pyrightconfig.json
+**/pyrightconfig.json

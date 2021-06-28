@@ -22,4 +22,4 @@ EXPOSE 8000
 
 ENTRYPOINT ["poetry", "run", "gunicorn", "-k", "workers.UvicornWorker", "fasty.main:app"]
 
-CMD ["--bind", "0.0.0.0:8000"]
+CMD ["--bind", "0.0.0.0:8000", "--access-logfile", "-"]
