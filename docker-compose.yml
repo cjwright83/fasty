@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  fasty:
+    build:
+      context: .
+    environment:
+      - DB_HOST=pg
+      - DB_NAME=postgres
+      - DB_PASSWORD=password
+      - DB_USER=fasty
+    ports:
+      - 8000:8000
+    links:
+      - fasty-pg:pg
+    depends_on:
+      - fasty-pg
+
+  fasty-pg:
+    image: postgres:13.3
+    environment:
+      - POSTGRES_USER=fasty
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    ports:
+      - 5432
