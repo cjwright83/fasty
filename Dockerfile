@@ -8,15 +8,21 @@ WORKDIR /srv/fasty/
 
 RUN chown user:user ./
 
-RUN pip install --no-cache-dir setuptools==57.0.0 pip==21.1.2 poetry==1.1.6
-
-USER user
+RUN pip install --no-cache-dir setuptools==57.0.0 pip==21.1.3 poetry==1.1.6
 
 COPY --chown=user:user pyproject.toml poetry.lock ./
 
-RUN poetry install -n --no-dev && rm -rf ~/.cache/pypoetry/{cache,artifacts} 
+RUN apt-get update && \
+    apt-get -y install gcc libpq-dev && \
+    rm -rf /var/lib/apt/lists/* && \
+    POETRY_VIRTUALENVS_IN_PROJECT=true poetry install -n --no-dev && \
+    rm -rf ~/.cache/pypoetry/{cache,artifacts} && \
+    apt-get -y purge gcc && \
+    apt-get -y autoremove
 
 COPY --chown=user:user ./ ./
+
+USER user
 
 EXPOSE 8000
 

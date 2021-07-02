@@ -16,7 +16,7 @@ fileConfig(config.config_file_name)
 # add your model's MetaData object here
 # for 'autogenerate' support
 from fasty import models
-target_metadata = models.Base.metadata
+target_metadata = models.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

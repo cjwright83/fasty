@@ -10,3 +10,11 @@ DATABASE_URL = f'postgresql://{settings.db_user}:{settings.db_password}@{setting
 database = databases.Database(DATABASE_URL)
 
 metadata = MetaData()
+
+
+async def database_connect() -> None:
+    await database.connect()
+
+
+async def database_disconnect() -> None:
+    await database.disconnect()
