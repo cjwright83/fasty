@@ -4,6 +4,7 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
+    db_engine: str
     db_host: str
     db_name: str
     db_password: str
@@ -11,9 +12,9 @@ class Settings(BaseSettings):
     debug: bool
 
     class Config:
-        env_file = '.env'
+        env_file = ".env"
 
 
 @lru_cache
-def get_settings():
+def get_settings() -> Settings:
     return Settings()
