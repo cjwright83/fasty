@@ -22,10 +22,12 @@ RUN apt-get update && \
 
 COPY --chown=user:user ./ ./
 
+RUN mv ./alembic.ini.docker ./alembic.ini
+
 USER user
 
 EXPOSE 8000
 
-ENTRYPOINT ["poetry", "run", "gunicorn", "-k", "workers.UvicornWorker", "fasty.main:app"]
+ENTRYPOINT ["poetry", "run"]
 
-CMD ["--bind", "0.0.0.0:8000", "--access-logfile", "-"]
+CMD ["gunicorn", "-k", "workers.UvicornWorker", "fasty.main:app", "--bind", "0.0.0.0:8000", "--access-logfile", "-"]
