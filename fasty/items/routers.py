@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Path, status
 
 from .db_models import Item
 from .models import ItemIn, ItemOut
@@ -17,7 +17,9 @@ async def read_items():
 
 
 @items_router.get("/{id:int}/", response_model=ItemOut)
-async def read_item(id: int):
+async def read_item(
+    id: int = Path(..., title="The ID of the item to get.", ge=1, le=2 ** 31),
+):
     item = await Item.fetch_by_id(id)
     if item is None:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -31,12 +33,17 @@ async def create_item(item: ItemIn):
 
 
 @items_router.put("/{id:int}/", response_model=ItemOut)
-async def update_item(id: int, item: ItemIn):
+async def update_item(
+    item: ItemIn,
+    id: int = Path(..., title="The ID of the item to update.", ge=1, le=2 ** 31),
+):
     await Item.update(id, **item.dict())
     return {"id": id, **item.dict()}
 
 
 @items_router.delete("/{id:int}/", response_model=None)
-async def delete_item(id: int):
+async def delete_item(
+    id: int = Path(..., title="The ID of the item to delete.", ge=1, le=2 ** 31),
+):
     await Item.delete(id)
     return None

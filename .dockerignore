@@ -10,3 +10,6 @@
 
 # SSL Certificates
 **/cert/
+
+# Alembic configuration
+**/alembic.ini
