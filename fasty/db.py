@@ -1,3 +1,5 @@
+import contextlib
+
 import databases
 
 from .config import get_settings
@@ -13,9 +15,9 @@ DATABASE_URL = (
 database = databases.Database(DATABASE_URL)
 
 
-async def database_connect() -> None:
-    await database.connect()
-
-
-async def database_disconnect() -> None:
-    await database.disconnect()
+@contextlib.asynccontextmanager
+async def lifespan(app):
+    async with database:
+        await database.connect()
+        yield
+        await database.disconnect()

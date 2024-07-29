@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 
 
 class ItemIn(BaseModel):
@@ -7,7 +7,7 @@ class ItemIn(BaseModel):
     price: float
     is_offer: bool
 
-    @validator("name", "description")
+    @field_validator("name", "description")
     def no_null(cls, value: str) -> str:
         if "\x00" in value:
             raise ValueError("Data cannot contain null characters")
