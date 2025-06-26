@@ -1,4 +1,4 @@
-version: '3.8'
+name: 'fasty'
 
 services:
   fasty:
@@ -17,7 +17,7 @@ services:
       - fasty-pg
 
   fasty-pg:
-    image: postgres:13.3
+    image: postgres:17.5
     environment:
       - POSTGRES_USER=fasty
       - POSTGRES_PASSWORD=password
