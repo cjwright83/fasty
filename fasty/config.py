@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    db_engine: str
+    db_engine: str  # a comment
     db_host: str
     db_name: str
     db_password: str

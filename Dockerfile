@@ -10,26 +10,21 @@ ENV PYTHONFAULTHANDLER=1 \
 	PIP_NO_CACHE_DIR=off \
 	PIP_DISABLE_PIP_VERSION_CHECK=on \
 	PIP_DEFAULT_TIMEOUT=100 \
-	POETRY_NO_INTERACTION=1 \
-	POETRY_VIRTUALENVS_CREATE=false \
 	PATH="${PATH}:/runtime/bin" \
 	PYTHONPATH="/runtime/usr/local/lib/python3.12/site-packages" \
 	# Versions:
 	PIP_VERSION=25.1.1 \
-	POETRY_VERSION=2.1.3 \
-	POETRY_EXPORT_VERSION=1.9.0
+	UV_VERSION=0.7.17
 
 RUN apt-get update && apt-get install -y gcc
+
+COPY --from=ghcr.io/astral-sh/uv:0.7.17 /uv /uvx /bin/
 
 RUN pip install --no-cache-dir pip==$PIP_VERSION poetry==$POETRY_VERSION
 
 WORKDIR /src
 
-COPY pyproject.toml poetry.lock /src/
-
-RUN poetry self add poetry-plugin-export==$POETRY_EXPORT_VERSION
-
-RUN poetry export -n --no-ansi --without-hashes -f requirements.txt -o requirements.txt
+COPY pyproject.toml uv.lock /src/
 
 RUN pip install --prefix=/runtime --force-reinstall -r requirements.txt
 
