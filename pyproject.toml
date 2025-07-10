@@ -1,40 +1,49 @@
-[tool.isort]
-profile = "black"
-
-[tool.poetry]
+[project]
 name = "fasty"
 version = "0.1.0"
-description = ""
-authors = ["Chris Wright <cwright@twigeducation.com>"]
+description = "Default template for PDM package"
+authors = [
+    {name = "Chris Wright", email = "cjwright83y@gmail.com"},
+]
+dependencies = [
+    "alembic[psycopg2]>=1.16.2",
+    "databases[postgresql]>=0.9.0",
+    "fastapi>=0.115.14",
+    "gunicorn>=23.0.0",
+    "psycopg2>=2.9.10",
+    "pydantic[dotenv]>=2.11.7",
+    "pydantic-settings>=2.10.1",
+    "python-jose>=3.5.0",
+    "uvicorn>=0.35.0",
+]
+requires-python = "==3.13.*"
+readme = "README.md"
+license = {text = "MIT"}
 
-[tool.poetry.dependencies]
-python = "^3.13"
-alembic = {extras = ["psycopg2"], version = "^1.13.1"}
-databases = {version = "^0.9.0", extras = ["postgresql"]}
-fastapi = "^0.115.5"
-gunicorn = "^23.0.0"
-psycopg2 = "^2.9.1"
-pydantic = {version = "^2.6.4", extras = ["dotenv"]}
-pydantic-settings = "^2.2.1"
-python-jose = "^3.1.0"
-uvicorn = "^0.34.2"
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.0.0",
+    "pytest-cov>=6.2.1",
+    "pytest-forked>=1.6.0",
+    "pytest-xdist>=3.8.0",
+    "requests>=2.32.4",
+    "ruff>=0.12.2",
+    "schemathesis>=4.0.4",
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^25.1.0"
-flake8 = "^7.0.0"
-httpx = "^0.28.0"
-isort = "^6.0.1"
-pytest = "^8.1.1"
-pytest-asyncio = "^1.0.0"
-pytest-cov = "^6.0.0"
-pytest-forked = "^1.6.0"
-pytest-xdist = "^3.5.0"
-requests = "^2.26.0"
-schemathesis = "^3.26.1"
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "S",  # flake8-bandit
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
 
-[tool.poetry.requires-plugins]
-poetry-plugin-export = "^1.9.0"
-
-[build-system]
-requires = ["poetry>=1.1.7"]
-build-backend = "poetry.masonry.api"
+[tool.pdm]
+distribution = false

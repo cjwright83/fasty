@@ -16,3 +16,42 @@
 
 # Alembic configuration
 **/alembic.ini
+
+# Virtualenv
+**/.venv/
+
+# MyPy
+**/.mypy_cache/
+
+# Ruff
+**/.ruff_cache/
+
+# Pytest
+**/.pytest_cache/
+
+# Requirements
+**/requirements.txt
+
+# Docker
+**/Dockerfile
+
+# Docker compose
+**/docker-compose.yml
+
+# Env file
+**/.env
+
+# Flake8
+**/.flake8
+
+# PDM
+**/.pdm-python
+
+# Pyenv
+**/.python-version
+
+# Git
+**/.gitignore
+
+# Make
+**/Makefile

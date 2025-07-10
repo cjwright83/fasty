@@ -10,3 +10,9 @@
 
 # SSL Certificates
 **/cert/
+
+# PDM
+.pdm-python
+
+# Pyenv
+.python-version
