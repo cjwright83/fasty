@@ -1,4 +1,4 @@
-FROM python:3.13.5-slim-bookworm AS base
+FROM python:3.14.2-slim-trixie AS base
 
 RUN apt-get update && apt-get install -y libpq-dev
 
@@ -11,22 +11,21 @@ ENV PYTHONFAULTHANDLER=1 \
 	PIP_DISABLE_PIP_VERSION_CHECK=on \
 	PIP_DEFAULT_TIMEOUT=100 \
 	PATH="${PATH}:/runtime/bin" \
-	PYTHONPATH="/runtime/usr/local/lib/python3.12/site-packages" \
+	PYTHONPATH="/runtime/usr/local/lib/python3.14/site-packages" \
 	# Versions:
-	PIP_VERSION=25.1.1 \
-	UV_VERSION=0.7.17
+	UV_VERSION=0.10.6
 
 RUN apt-get update && apt-get install -y gcc
 
-COPY --from=ghcr.io/astral-sh/uv:0.7.17 /uv /uvx /bin/
-
-RUN pip install --no-cache-dir pip==$PIP_VERSION poetry==$POETRY_VERSION
+COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
 WORKDIR /src
 
 COPY pyproject.toml uv.lock /src/
 
-RUN pip install --prefix=/runtime --force-reinstall -r requirements.txt
+RUN uv export --format requirements.txt > requirements.txt
+
+RUN uv pip install --prefix=/runtime --force-reinstall -r requirements.txt
 
 FROM base AS runtime
 

@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import APIRouter, HTTPException, Path, status
 
 from .db_models import Item
@@ -11,7 +9,7 @@ items_router = APIRouter(
 )
 
 
-@items_router.get("/", response_model=List[ItemOut])
+@items_router.get("/", response_model=list[ItemOut])
 async def read_items():
     return await Item.fetch_all()
 
@@ -28,8 +26,8 @@ async def read_item(
 
 @items_router.post("/", response_model=ItemOut, status_code=status.HTTP_201_CREATED)
 async def create_item(item: ItemIn):
-    id = await Item.create(**item.dict())
-    return {"id": id, **item.dict()}
+    id = await Item.create(**item.model_dump())
+    return {"id": id, **item.model_dump()}
 
 
 @items_router.put("/{id:int}/", response_model=ItemOut)
@@ -37,8 +35,8 @@ async def update_item(
     item: ItemIn,
     id: int = Path(..., title="The ID of the item to update.", ge=1, le=2**31),
 ):
-    await Item.update(id, **item.dict())
-    return {"id": id, **item.dict()}
+    await Item.update(id, **item.model_dump())
+    return {"id": id, **item.model_dump()}
 
 
 @items_router.delete("/{id:int}/", response_model=None)

@@ -19,6 +19,7 @@ items = sa.Table(
 class Item:
     @classmethod
     async def fetch_all(cls):
+        print(database.connection())
         return await database.fetch_all(items.select())
 
     @classmethod

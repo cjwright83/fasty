@@ -5,8 +5,20 @@
 # Hypothesis
 **/.hypothesis/
 
+# Ruff
+**/.ruff_cache/
+
+# Virtualenv
+**/.venv/
+
+# Pytest
+**/.pytest_cache/
+
 # PyRight
 **/pyrightconfig.json
 
 # SSL Certificates
 **/cert/
+
+# SQLite3
+**/file.db

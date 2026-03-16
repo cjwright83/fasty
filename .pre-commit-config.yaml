@@ -1,7 +1,23 @@
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.1
+  - repo: local
     hooks:
-      - id: ruff-check
-        args: [ --fix ]
-      - id: ruff-format
+      - id: local-ruff-check
+        name: ruff check
+        entry: uv run ruff check --fix --exit-non-zero-on-fix
+        require_serial: true
+        language: unsupported
+        types: [python]
+
+      - id: local-ruff-format
+        name: ruff format
+        entry: uv run ruff format --exit-non-zero-on-format
+        require_serial: true
+        language: unsupported
+        types: [python]
+
+      - id: local-ty
+        name: ty check
+        entry: uv run ty check fasty
+        require_serial: true
+        language: unsupported
+        pass_filenames: false

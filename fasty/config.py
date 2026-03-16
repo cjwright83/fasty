@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    db_engine: str  # a comment
+    db_engine: str
     db_host: str
     db_name: str
     db_password: str
@@ -16,4 +16,4 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    return Settings()  # ty: ignore[missing-argument]

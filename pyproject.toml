@@ -3,29 +3,58 @@ name = "fasty"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13.5"
+requires-python = ">=3.10"
 dependencies = [
-    "alembic>=1.16.2",
-    "databases[postgresql]>=0.9.0",
-    "fastapi[standard]>=0.115.14",
-    "gunicorn>=23.0.0",
-    "psycopg2>=2.9.10",
-    "pydantic-settings>=2.10.1",
-    "pydantic>=2.11.7",
-    "python-dotenv>=1.1.1",
-    "python-jose>=3.5.0",
-    "uvicorn>=0.34.3",
+    "alembic",
+    "databases[postgresql]",
+    "fastapi[standard]",
+    "gunicorn==24.0.0",
+    "psycopg2",
+    "pydantic-settings",
+    "pydantic",
+    "python-dotenv",
+    "python-jose",
+    "uvicorn",
 ]
 
 [dependency-groups]
 dev = [
-    "httpx>=0.28.1",
-    "pytest>=8.4.1",
-    "pytest-asyncio>=1.0.0",
-    "pytest-cov>=6.2.1",
-    "pytest-forked>=1.6.0",
-    "pytest-xdist>=3.7.0",
-    "requests>=2.32.4",
-    "ruff>=0.12.1",
-    "schemathesis>=4.0.2",
+    "bandit",
+    "databases[aiosqlite,postgresql]",
+    "faker",
+    "httpx",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-env",
+    "pytest-forked",
+    "pytest-xdist",
+    "requests",
+    "ruff",
+    "schemathesis",
+    "ty",
+]
+
+[tool.pytest_env]
+DB_ENGINE="sqlite+aiosqlite"
+DB_HOST="localhost"
+DB_NAME="test_fasty"
+DB_PASSWORD="password"
+DB_USER="fasty"
+DEBUG="True"
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
 ]
