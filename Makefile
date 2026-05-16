@@ -1,8 +1,8 @@
 build:
-	docker-compose build fasty
+	docker compose build fasty
 
 migrate:
-	docker-compose run fasty alembic upgrade head
+	docker compose run fasty alembic upgrade head
 
 up:
-	docker-compose up
+	docker compose up

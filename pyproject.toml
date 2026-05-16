@@ -8,13 +8,14 @@ dependencies = [
     "alembic",
     "databases[postgresql]",
     "fastapi[standard]",
-    "gunicorn==24.0.0",
+    "gunicorn",
     "psycopg2",
     "pydantic-settings",
     "pydantic",
     "python-dotenv",
     "python-jose",
     "uvicorn",
+    "sqlmodel",
 ]
 
 [dependency-groups]
@@ -23,11 +24,10 @@ dev = [
     "databases[aiosqlite,postgresql]",
     "faker",
     "httpx",
+    "mypy",
     "pytest",
-    "pytest-asyncio",
     "pytest-cov",
     "pytest-env",
-    "pytest-forked",
     "pytest-xdist",
     "requests",
     "ruff",
@@ -36,7 +36,7 @@ dev = [
 ]
 
 [tool.pytest_env]
-DB_ENGINE="sqlite+aiosqlite"
+DB_ENGINE="sqlite"
 DB_HOST="localhost"
 DB_NAME="test_fasty"
 DB_PASSWORD="password"

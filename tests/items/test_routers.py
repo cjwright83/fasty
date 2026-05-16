@@ -1,22 +1,28 @@
-import pytest
 from faker import Faker
+from fastapi.testclient import TestClient
+from sqlmodel import Session
 
-from fasty.items.db_models import Item
+from fasty.db import engine
+from fasty.items.sql_models import Item
 
 fake = Faker()
 
 
-async def item(**attrs):
-    await Item.create(
+def item(**attrs):
+    item = Item(
         name=attrs.get("name", fake.name()),
         description=attrs.get("description", fake.text()),
         price=attrs.get("price", fake.pyfloat()),
         is_offer=attrs.get("is_offer", fake.boolean()),
     )
+    with Session(engine) as session:
+        session.add(item)
+        session.commit()
+        session.refresh(item)
+    return item
 
 
-@pytest.mark.asyncio
-async def test_read_items_response_status_code_200(async_client):
-    await item()
-    response = await async_client.get("/items/")
+def test_read_items_response_status_code_200(client: TestClient):
+    item()
+    response = client.get("/items/")
     assert response.status_code == 200

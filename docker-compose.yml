@@ -17,7 +17,7 @@ services:
       - fasty-pg
 
   fasty-pg:
-    image: postgres:17.5
+    image: postgres:17.9
     environment:
       - POSTGRES_USER=fasty
       - POSTGRES_PASSWORD=password

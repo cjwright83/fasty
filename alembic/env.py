@@ -1,9 +1,8 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config, pool
+from sqlmodel import SQLModel, engine_from_config, pool
 
 from alembic import context
-from fasty import db_models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -16,7 +15,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-target_metadata = db_models.metadata
+target_metadata = SQLModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -60,7 +59,7 @@ def run_migrations_online():
         connectable = engine_from_config(
             ini_section,
             prefix="sqlalchemy.",
-            poolclass=pool.NullPool,
+            poolclass=pool.StaticPool,
         )
 
         with connectable.connect() as connection:

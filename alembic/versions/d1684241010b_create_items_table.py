@@ -6,7 +6,7 @@ Create Date: 2021-06-27 17:21:08.154741
 
 """
 
-import sqlalchemy as sa
+import sqlmodel as sm
 
 from alembic import op
 
@@ -20,11 +20,11 @@ depends_on = None
 def upgrade():
     op.create_table(
         "items",
-        sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("name", sa.String(64), nullable=False),
-        sa.Column("description", sa.Unicode(), nullable=False),
-        sa.Column("price", sa.Numeric(), nullable=False),
-        sa.Column("is_offer", sa.Boolean(), nullable=False),
+        sm.Column("id", sm.Integer, primary_key=True),
+        sm.Column("name", sm.String(64), nullable=False),
+        sm.Column("description", sm.Unicode(), nullable=False),
+        sm.Column("price", sm.Numeric(), nullable=False),
+        sm.Column("is_offer", sm.Boolean(), nullable=False),
     )
 
 

@@ -1,4 +1,4 @@
-FROM python:3.14.2-slim-trixie AS base
+FROM python:3.14.4-slim-trixie AS base
 
 RUN apt-get update && apt-get install -y libpq-dev
 
@@ -13,11 +13,11 @@ ENV PYTHONFAULTHANDLER=1 \
 	PATH="${PATH}:/runtime/bin" \
 	PYTHONPATH="/runtime/usr/local/lib/python3.14/site-packages" \
 	# Versions:
-	UV_VERSION=0.10.6
+	UV_VERSION=0.11.8
 
 RUN apt-get update && apt-get install -y gcc
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.11.8 /uv /uvx /bin/
 
 WORKDIR /src
 
