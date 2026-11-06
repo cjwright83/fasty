@@ -5,19 +5,21 @@ services:
     build:
       context: .
     environment:
+      - DB_ENGINE=postgresql
       - DB_HOST=pg
       - DB_NAME=postgres
       - DB_PASSWORD=password
       - DB_USER=fasty
+      - DEBUG=False
     ports:
-      - 8000:8000
+      - 8080:80
     links:
       - fasty-pg:pg
     depends_on:
       - fasty-pg
 
   fasty-pg:
-    image: postgres:17.9
+    image: postgres:18.6
     environment:
       - POSTGRES_USER=fasty
       - POSTGRES_PASSWORD=password

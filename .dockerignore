@@ -13,9 +13,29 @@
 
 # Pytest
 **/.pytest_cache/
+**/conftest.py
+
+# Docker
+**/.dockerignore
+
+# Env
+**/.env
+
+# Docker Compose
+**/docker-compose.yml
+
+# Make
+**/Makefile
+
+# Readme
+**/README.md
 
 # git
 **/.git/
+**/.gitignore
+
+# MyPy
+**/.mypy_cache/
 
 #PyRight
 **/pyrightconfig.json
@@ -28,3 +48,12 @@
 
 # SQLite3
 **/file.db
+
+# Pre Commit
+**/.pre-commit-config.yaml
+
+# Python version
+**/.python-version
+
+# Tests
+**/tests/

@@ -13,5 +13,5 @@ def setup_database():
 
 
 @pytest.fixture(scope="module")
-def client(setup_database):
+def client():
     return TestClient(app)

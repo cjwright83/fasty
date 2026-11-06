@@ -1,4 +1,4 @@
-FROM python:3.14.4-slim-trixie AS base
+FROM python:3.14.7-slim-trixie AS base
 
 RUN apt-get update && apt-get install -y libpq-dev
 
@@ -13,17 +13,17 @@ ENV PYTHONFAULTHANDLER=1 \
 	PATH="${PATH}:/runtime/bin" \
 	PYTHONPATH="/runtime/usr/local/lib/python3.14/site-packages" \
 	# Versions:
-	UV_VERSION=0.11.8
+	UV_VERSION=0.12.6
 
 RUN apt-get update && apt-get install -y gcc
 
-COPY --from=ghcr.io/astral-sh/uv:0.11.8 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.12.3 /uv /uvx /bin/
 
 WORKDIR /src
 
 COPY pyproject.toml uv.lock /src/
 
-RUN uv export --format requirements.txt > requirements.txt
+RUN uv export --no-dev --format requirements.txt > requirements.txt
 
 RUN uv pip install --prefix=/runtime --force-reinstall -r requirements.txt
 
@@ -33,7 +33,11 @@ COPY --from=builder /runtime /usr/local
 
 RUN useradd -ms /bin/bash user
 
-COPY --chown=user:user ./ /app
+COPY --chown=user:user alembic.ini.docker /app/
+
+COPY --chown=user:user fasty /app/fasty/
+
+COPY --chown=user:user alembic /app/alembic/
 
 WORKDIR /app
 
@@ -41,6 +45,4 @@ RUN mv ./alembic.ini.docker ./alembic.ini
 
 USER user
 
-EXPOSE 8000
-
-CMD ["gunicorn", "-k", "workers.UvicornWorker", "fasty.main:app", "--bind", "0.0.0.0:8000", "--access-logfile", "-"]
+CMD ["fastapi", "run", "fasty/main.py", "--port", "80"]

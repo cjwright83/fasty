@@ -6,25 +6,20 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "alembic",
-    "databases[postgresql]",
     "fastapi[standard]",
-    "gunicorn",
     "psycopg2",
-    "pydantic-settings",
     "pydantic",
-    "python-dotenv",
-    "python-jose",
-    "uvicorn",
+    "pydantic-settings",
     "sqlmodel",
 ]
 
 [dependency-groups]
 dev = [
     "bandit",
-    "databases[aiosqlite,postgresql]",
     "faker",
-    "httpx",
+    "httpx2",
     "mypy",
+    "python-dotenv",
     "pytest",
     "pytest-cov",
     "pytest-env",
@@ -45,6 +40,10 @@ DEBUG="True"
 
 [tool.ruff.lint]
 select = [
+    # FastAPI
+    "FAST",
+    # Bandit
+    "S",
     # pycodestyle
     "E",
     # Pyflakes
@@ -58,3 +57,6 @@ select = [
     # isort
     "I",
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["S101"]

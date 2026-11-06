@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from typing import Any
 
 from sqlmodel import Session, select
@@ -6,7 +7,7 @@ from ..db import engine
 from .sql_models import Item
 
 
-def fetch_all_items():
+def fetch_all_items() -> Sequence[Item]:
     with Session(engine) as session:
         return session.exec(select(Item)).all()
 

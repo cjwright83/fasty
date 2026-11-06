@@ -1,0 +1,4 @@
+[pytest]
+markers = [
+    "batch_num: specify the number of db models used in a test",
+]
